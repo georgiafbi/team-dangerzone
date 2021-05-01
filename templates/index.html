@@ -3,10 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    
+
     <title>Team DangerZone Chicago Crime</title>
     <!-- Chart.js-->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.0/dist/chart.min.js"></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Sanchez" rel="stylesheet" />
     <!--bootstrap link-->
@@ -32,10 +32,10 @@
     <!-- d3 JavaScript -->
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
-    
+
 </head>
 
-<body>
+<body style="background-color:tan;">
     <div class="container">
         <div class="jumbotron text-center"
             style="background-image: url('{{imglink}}');background-repeat: no-repeat; background-size: 100% 99%;">
@@ -44,16 +44,23 @@
         <!-- The div where we will inject our map-->
 
         <div class="row">
-            <div class="col-lg-8">
-                
+            <div class="col-lg-6" id="mdiv">
+
                 <div id="map"></div>
             </div>
-            <div class="col-lg-4">
-                <canvas id="myChart">
-                    
+
+            <div class="col-lg-6">
+
+                <canvas id="myBar">
+
+                </canvas>
+                <canvas id="myPie">
+
                 </canvas>
             </div>
+
         </div>
+    </div>
     </div>
     <!-- MomentJS -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.1/moment.min.js"></script>
@@ -72,12 +79,12 @@
     <script type="text/javascript" src="../static/data/chicago_geojson.js"></script>
 
 
-    
+
     <!-- Icons -->
     <script src="../static/js/leaflet.extra-markers.min.js"></script>
 
     <script type="text/javascript" src="../static/js/mapbox_config.js"></script>
-    <script type="text/javascript">var crimeZip= JSON.parse('{{ test | tojson | safe}}'); </script>
+    <script type="text/javascript">var crimeZip = JSON.parse('{{ test | tojson | safe}}');</script>
 
 
     <script type="text/javascript" src="../static/js/logic.js"></script>
@@ -85,7 +92,7 @@
     <!-- Leaflet heatmap plugin-->
     <script type="text/javascript" src="../static/js/leaflet-heat.js"></script>
 
-    <script type="text/javascript">var crimeZip= JSON.parse('{{ test | tojson | safe}}'); </script>
+    <script type="text/javascript">var crimeZip = JSON.parse('{{ test | tojson | safe}}');</script>
 
 
 

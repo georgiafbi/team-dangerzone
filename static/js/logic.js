@@ -5,9 +5,11 @@ let newMarker = [];
 let geojsonLayer;
 let unique_crime;
 let graph_zip = "60612"
+
 console.log(crimeZip);
 
 let crimeBarChart;
+let crimePieChart;
 // Create the createMap function
 function createMap(crimeSpots, heatMap, geoMap) {
   // Create the tile layer that will be the background of our map
@@ -64,7 +66,7 @@ function createMap(crimeSpots, heatMap, geoMap) {
   });
   // Create a layer control, pass in the baseMaps and overlayMaps. Add the layer control to the map
   L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
+    collapsed: true
   }).addTo(myMap);
 }
 // console.log(chicagoGeoJsonData);
@@ -120,7 +122,7 @@ function createZipCodeZones(zipCodeData) {
     //set the popup text. put the ZIP CODE inside h1 tag
     //console.log(feature)
 
-    let popuptext = `<h2 id="zip">${feature.properties.ZIP}</h2>`
+    let popuptext = `<h3>ZIP CODE</h3><hr><h2 id="zip">${feature.properties.ZIP}</h2>`
     layer.bindPopup(popuptext);
     //console.log(layer);
     /*********************************************************/
@@ -157,7 +159,9 @@ function createZipCodeZones(zipCodeData) {
 
       layer = event.target;
       graph_zip = d3.select("#zip").text()
-      updateChart();
+      updateChartData();
+      upDateChartTitle();
+      
 
     }
   }
@@ -322,7 +326,7 @@ function getIcon(key) {
     "SEX OFFENSE": L.ExtraMarkers.icon({
       icon: "ion-transgender",
       iconColor: "gold",
-      markerColor: "grey",
+      markerColor: "pink",
       shape: "star",
     }),
     "CRIMINAL SEXUAL ASSAULT": L.ExtraMarkers.icon({
@@ -339,8 +343,8 @@ function getIcon(key) {
     }),
     "ARSON": L.ExtraMarkers.icon({
       icon: "ion-ios-flame-outline",
-      iconColor: "blue",
-      markerColor: "grey",
+      iconColor: "black",
+      markerColor: "yellow",
       shape: "circle",
     }),
     "HOMICIDE": L.ExtraMarkers.icon({
@@ -376,25 +380,52 @@ function color(ZIP) {
 function createGraphs() {
   console.log(graph_zip);
 
-
-  let myChart = document.getElementById('myChart').getContext('2d');
+  let chartColors=twenty0neGuns();
+  let myBarChart = document.getElementById('myBar').getContext('2d');
   // myChart.clear();
   // myChart=document.getElementById('myChart').getContext('2d');
-  crimeBarChart = new Chart(myChart, {
+  crimeBarChart = new Chart(myBarChart, {
     type: 'bar',
     data: {
       labels: unique_crime,
       datasets: [{
-        label: `Crime forZip Code: ${graph_zip}`,
+        label: `Crime for Zip Code: ${graph_zip}`,
         data: data_for_graph(),
-        backgroundColor:twenty0neGuns(),
-        borderColor:"black",
-        options: {
-          indexAxis: 'y',
-        }
+        backgroundColor: chartColors,
+        borderColor: "black",
+
       }]
+    },
+    options: {
+      indexAxis: 'y',
+      // Elements options apply to all of the options unless overridden in a dataset
+      // In this case, we are setting the border of each horizontal bar to be 2px wide
+      elements: {
+        bar: {
+          borderWidth: 2,
+        }
+      }
     }
 
+
+  });
+
+  let myPieChart = document.getElementById('myPie').getContext('2d');
+  crimePieChart = new Chart(myPieChart, {
+    type: 'doughnut',
+    data: {
+      labels: unique_crime,
+      datasets: [{
+        label: `Number of Crimes by Zip Code: ${graph_zip}`,
+        data: data_for_graph(),
+        backgroundColor: chartColors,
+        borderColor: "black",
+      }]},
+      options: {
+        legend: {
+          display: false
+        }
+      }
   });
 
 
@@ -402,8 +433,16 @@ function createGraphs() {
   console.log("Update Graph")
 
 }
-function updateChart() {
+function updateChartData() {
   crimeBarChart.data.datasets[0].data = data_for_graph();
+  
+  crimeBarChart.update();
+  crimePieChart.data.datasets[0].data=data_for_graph();
+  crimePieChart.update();
+}
+function upDateChartTitle(){
+  crimeBarChart.data.datasets[0].label=`Number of Crimes by Zip Code: ${graph_zip}`;
+  console.log(crimeBarChart.data.datasets[0].label)
   crimeBarChart.update();
 }
 function data_for_graph() {
@@ -425,12 +464,13 @@ function data_for_graph() {
   });
   return currentZipCrimeData;
 }
-function twenty0neGuns(){
-  var crimeColors=[];
-  for(var i=0;i<21;i++){
+function twenty0neGuns() {
+  var crimeColors = [];
+  for (var i = 0; i < 21; i++) {
     crimeColors.push(color());
   }
   return crimeColors;
 }
+
 
 
