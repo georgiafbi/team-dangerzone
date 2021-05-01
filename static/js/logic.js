@@ -255,7 +255,7 @@ function getIcon(key) {
       icon: "ion-scissors",
       iconColor: "white",
       markerColor: "green",
-      shape: "circle",
+      shape: "square",
     }),
     "MOTOR VEHICLE THEFT": L.ExtraMarkers.icon({
       icon: "ion-model-s",
@@ -285,7 +285,7 @@ function getIcon(key) {
       icon: "ion-erlenmeyer-flask",
       iconColor: "black",
       markerColor: "blue",
-      shape: "circle",
+      shape: "square",
     }),
     "CRIMINAL TRESPASS": L.ExtraMarkers.icon({
       icon: "ion-android-walk",
@@ -307,21 +307,21 @@ function getIcon(key) {
     }),
     "ASSAULT": L.ExtraMarkers.icon({
       icon: "ion-hammer",
-      iconColor: "yellow",
-      markerColor: "orange",
+      iconColor: "black",
+      markerColor: "white",
       shape: "penta",
     }),
     "DECEPTIVE PRACTICE": L.ExtraMarkers.icon({
       icon: "ion-android-contacts",
       iconColor: "blue",
       markerColor: "yellow",
-      shape: "circle",
+      shape: "star",
     }),
     "STALKING": L.ExtraMarkers.icon({
       icon: "ion-person-stalker",
       iconColor: "violet",
       markerColor: "gold",
-      shape: "circle",
+      shape: "square",
     }),
     "SEX OFFENSE": L.ExtraMarkers.icon({
       icon: "ion-transgender",

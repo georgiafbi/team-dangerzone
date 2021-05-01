@@ -15,4 +15,8 @@ body {
   height:500px;
 
 }
+canvas{
+  padding-top: 50px;
+  margin-top: 30px;
+}
 
