@@ -1,9 +1,8 @@
 # Dependencies
-from pprint import pprint
 import requests
-import json
+
 from flask import Flask, render_template, redirect, request, json
-import pandas as pd
+import pandas 
 app = Flask(__name__)
 
 # Census API Key
@@ -15,12 +14,12 @@ def crime_zip():
     url = 'https://data.cityofchicago.org/resource/qzdf-xmn8.json'
     # reverseGeoAPI = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{lng}%2C%20{lt}.json?access_token={API_KEY}"
 
-    df = pd.read_json(url)
+    df = pandas.read_json(url)
 
     new_df = df.set_index("id")
     new_df = new_df.drop(['x_coordinate', 'y_coordinate',
                           'updated_on', 'beat', 'iucr'], axis=1)
-    new_df['latitude'] = pd.to_numeric(new_df['latitude'], errors='coerce')
+    new_df['latitude'] = pandas.to_numeric(new_df['latitude'], errors='coerce')
     new_df.dropna(inplace=True)
 
     crime_dict = []
@@ -28,7 +27,7 @@ def crime_zip():
         lt = row['latitude']
         lng = row['longitude']
         crime = row['primary_type']
-        date=pd.to_datetime(row['date']).strftime("%m/%d/%Y, %H:%M:%S")
+        date=pandas.to_datetime(row['date']).strftime("%m/%d/%Y, %H:%M:%S")
         # Run a request to endpoint and convert result to json
         target_url = f"https://api.mapbox.com/geocoding/v5/mapbox.places/{lng}%2C%20{lt}.json?access_token={api_key}"
         geo_data = requests.get(target_url).json()
