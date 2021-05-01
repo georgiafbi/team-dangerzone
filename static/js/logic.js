@@ -122,7 +122,16 @@ function createZipCodeZones(zipCodeData) {
     //set the popup text. put the ZIP CODE inside h1 tag
     //console.log(feature)
 
-    let popuptext = `<h3>ZIP CODE</h3><hr><h2 id="zip">${feature.properties.ZIP}</h2>`
+    let popuptext;
+    if(feature.properties.ZIP==="6761"){
+      popuptext= `<h3>ZIP CODE</h3><hr><h2 id="zip">${"60607"}</h2>`;
+    }
+    else if (feature.properties.ZIP==="12311"){
+      popuptext=`<h3>ZIP CODE</h3><hr><h2 id="zip">${"60611"}</h2>`;
+    }
+    else{
+      popuptext=`<h3>ZIP CODE</h3><hr><h2 id="zip">${feature.properties.ZIP}</h2>`;
+    }
     layer.bindPopup(popuptext);
     //console.log(layer);
     /*********************************************************/
@@ -446,7 +455,16 @@ function upDateChartTitle(){
   crimeBarChart.update();
 }
 function data_for_graph() {
-  let currentZipCrime = crimeZip.filter((elmnt) => elmnt["Zip Code"] === graph_zip);
+  let currentZipCrime;
+  if (graph_zip==="60607"){
+    currentZipCrime= crimeZip.filter((elmnt) => elmnt["Zip Code"] === graph_zip ||"60606" ||"60654"||"60661");
+  }
+  else if (graph_zip==="60611"){
+    currentZipCrime=crimeZip.filter((elmnt) => elmnt["Zip Code"] === graph_zip ||"60601"||"60602"||"60603"||"60604"||"60605");
+  }
+  else{
+    currentZipCrime=crimeZip.filter((elmnt) => elmnt["Zip Code"] === graph_zip);
+  }
   console.log(currentZipCrime)
   let currentZipCrimeData = [];
   unique_crime.forEach(ucrime => {
